@@ -22,7 +22,7 @@ jobs:
             git checkout -b ${{ steps.Create_Issue_Branch.outputs.branchName }}
             python scripts/drop_rules_create.py --application_name test_app >> $GITHUB_OUTPUT
             # echo "This is a new file" > new-file.txt
-            ls -la
+            # ls -la
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Commit new file
@@ -31,6 +31,7 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           # git add new-file.txt
           git add drop_rule_test_app.tf
+          ls -la scripts/
           git commit -m "Add new file to new branch" || echo "No changes to commit" 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
