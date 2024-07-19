@@ -1,1 +1,2 @@
 mode: immediate
+branchName: 'drop-rule-creation-${issue.number}'
