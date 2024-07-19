@@ -23,6 +23,8 @@ jobs:
             python scripts/drop_rules_create.py --application_name test_app >> $GITHUB_OUTPUT
             # echo "This is a new file" > new-file.txt
             ls -la
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Commit new file
         run: |
           git config --global user.name "github-actions[bot]"
