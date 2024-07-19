@@ -11,6 +11,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Create Issue Branch
+        id: Create_Issue_Branch
         uses: robvanderleek/create-issue-branch@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
