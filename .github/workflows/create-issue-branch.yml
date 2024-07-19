@@ -15,4 +15,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create file in new Branch
-        run: echo "This is a new file" > new-file.txt"
+        run: echo "This is a new file" > new-file.txt
