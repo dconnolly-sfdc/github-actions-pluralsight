@@ -26,7 +26,8 @@ jobs:
             git checkout -b ${{ steps.Create_Issue_Branch.outputs.branchName }}
             echo "This is a new file" > new-file.txt
             git add new-file.txt
-            git commit -m "Add new file to new branch"
-            git push origin ${{ steps.Create_Issue_Branch.outputs.branchName }}
+            git status
+            # git commit -m "Add new file to new branch"
+            # git push origin ${{ steps.Create_Issue_Branch.outputs.branchName }}
       
       
