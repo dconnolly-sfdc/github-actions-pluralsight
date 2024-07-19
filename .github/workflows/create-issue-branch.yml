@@ -15,18 +15,20 @@ jobs:
         uses: robvanderleek/create-issue-branch@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Create new file
+      - name: Create new file from template
         id: Create_new_file
         run: | 
             echo ${{ steps.Create_Issue_Branch.outputs.branchName }}
             git checkout -b ${{ steps.Create_Issue_Branch.outputs.branchName }}
-            echo "This is a new file" > new-file.txt
+            python scripts/drop_rules_create.py --application_name test_app >> $GITHUB_OUTPUT
+            # echo "This is a new file" > new-file.txt
             ls -la
       - name: Commit new file
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add new-file.txt
+          # git add new-file.txt
+          git add drop_rule_test_app.tf
           git commit -m "Add new file to new branch" || echo "No changes to commit" 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
