@@ -14,8 +14,12 @@ jobs:
         uses: robvanderleek/create-issue-branch@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Echo new Issue Branch name
+        run: echo ${{ steps.Create_Issue_Branch.outputs.branchName }}
       - name: Create file in new Branch
-        run: echo "This is a new file" > new-file.txt
+        run: | 
+              git checkout -b ${{ steps.Create_Issue_Branch.outputs.branchName }}
+              echo "This is a new file" > new-file.txt
       - name: Commit new file
         run: |
             git config --global user.name "github-actions[bot]"
