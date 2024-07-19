@@ -8,7 +8,11 @@ jobs:
   create_issue_branch_job:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
       - name: Create Issue Branch
         uses: robvanderleek/create-issue-branch@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create file in new Branch
+        run: echo "This is a new file" > new-file.txt"
