@@ -17,19 +17,19 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Echo new Issue Branch name
         run: echo ${{ steps.Create_Issue_Branch.outputs.branchName }}
-      - name: Create file in new Branch
+      - name: Checkout new Branch
         run: | 
               git checkout -b ${{ steps.Create_Issue_Branch.outputs.branchName }}
-              echo "This is a new file" > new-file.txt
       - name: Commit new file
         run: |
             git config --global user.name "github-actions[bot]"
             git config --global user.email "github-actions[bot]@users.noreply.github.com"
+            echo "This is a new file" > new-file.txt
             git add new-file.txt
             git commit -m "Add new file to new branch"
       - name: Push to new branch
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: git push origin
+        run: git push origin ${{ steps.Create_Issue_Branch.outputs.branchName }}
       
       
