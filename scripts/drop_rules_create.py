@@ -11,8 +11,8 @@ variables = {
     'application_name': args.application_name
 }
 # Define the template and output file paths
-template_file = 'drop_rules_template.tf'
-output_file = f'drop_rule_{variables["application_name"]}.tf'
+template_file = 'scripts/drop_rules_template.tf'
+output_file = f'scripts/drop_rule_{variables["application_name"]}.tf'
 
 # Read the template file
 with open(template_file, 'r') as file:
