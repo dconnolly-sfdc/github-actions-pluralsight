@@ -23,8 +23,9 @@ jobs:
         run: | 
             echo ${{ steps.Create_Issue_Branch.outputs.branchName }}
             git checkout -b ${{ steps.Create_Issue_Branch.outputs.branchName }}
-            python scripts/drop_rules_create.py --application_name test_app >> $GITHUB_OUTPUT
-            # echo "This is a new file" > new-file.txt
+            python scripts/drop_rules_create.py --application_name test_app
+            echo "file_created=true" >> $GITHUB_ENV
+            # echo "This is a new file" >   new-file.txt
             # ls -la
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -39,6 +40,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Push new branch    
+        if: env.file_created == 'true'
         run: |
-            git push origin ${{ steps.Create_Issue_Branch.outputs.branchName }}
+          git push origin ${{ steps.Create_Issue_Branch.outputs.branchName }}
       
