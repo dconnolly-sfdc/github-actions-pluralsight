@@ -35,7 +35,7 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           echo ${{ steps.Create_Issue_Branch.outputs.branchName }}
           git branch -a
-          git pull origin/${{ steps.Create_Issue_Branch.outputs.branchName }}
+          git pull origin ${{ steps.Create_Issue_Branch.outputs.branchName }}
           git add scripts/drop_rule_test_app.tf # move this to diff folder later
           git commit -m "Add new file to new branch" || echo "No changes to commit" 
         env:
