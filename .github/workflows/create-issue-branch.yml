@@ -26,7 +26,8 @@ jobs:
             python scripts/drop_rules_create.py --application_name test_app
             echo "file_created=true" >> $GITHUB_ENV
             # echo "This is a new file" >   new-file.txt
-            # ls -la
+            ls -la
+            ls -la scripts
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Commit new file
