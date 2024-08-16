@@ -12,7 +12,7 @@ variables = {
 }
 # Define the template and output file paths
 template_file = 'scripts/drop_rules_template.tf'
-output_file = f'scripts/drop_rule_{variables["application_name"]}.tf'
+output_file = f'non-compliant-applications/drop_rule_{variables["application_name"]}.tf'
 
 # Read the template file
 with open(template_file, 'r') as file:
