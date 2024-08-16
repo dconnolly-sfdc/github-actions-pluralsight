@@ -1,4 +1,7 @@
 mode: immediate
-branchName: 'drop-rule-creation-${issue.number}'
-autoDeleteBranch: true
+branchName: 'drop-rule-creation-${issue.title,}-${issue.number}'
 openPR: true
+copyIssueDescriptionToPR: true
+autoDeleteBranch: true
+autoCloseIssue: true
+
