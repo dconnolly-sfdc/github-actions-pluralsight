@@ -27,6 +27,7 @@ jobs:
           do
             echo line
             echo "--"
+          done
         env:
           DESCRIPTION: ${{ github.event.issue.body }}
       - name: Create new file from template
