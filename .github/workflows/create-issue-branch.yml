@@ -37,7 +37,8 @@ jobs:
             git checkout -b ${{ steps.create_issue_branch.outputs.branchName }}
             for line in ${DESCRIPTION}
             do
-              python scripts/drop_rules_create.py --application_name line
+              echo "Creating file for ${line}"
+              python scripts/drop_rules_create.py --application_name ${line}
               echo "file_created=true" >> $GITHUB_ENV
             done
         env:
