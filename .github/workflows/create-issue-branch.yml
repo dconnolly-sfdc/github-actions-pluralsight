@@ -20,14 +20,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Get Issue Description
         id: get_issue_description
-        uses: actions/github-script@v6
-        with:
-          script: |
-            echo "print issue description"
-            const issue = await github.issues.get({
-              issue_number: issue_number
-              });
-            echo issue.data.body;
+        run: | 
+          echo "Issue title: ${{ github.event.issue.title }}"
+          echo "Issue body: ${{ github.event.issue.body }}"
       - name: Create new file from template
         id: create_new_file
         run: | 
