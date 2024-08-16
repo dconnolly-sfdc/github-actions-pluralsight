@@ -42,7 +42,7 @@ jobs:
           echo ${{ steps.create_issue_branch.outputs.branchName }}
           git branch -a
           git pull origin ${{ steps.create_issue_branch.outputs.branchName }}
-          git add scripts/drop_rule_test_app.tf # move this to diff folder later
+          git add non-compliant-applications/drop_rule_test_app.tf # loop through list of apps in issue
           git commit -m "Add new file to new branch" || echo "No changes to commit" 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
