@@ -14,15 +14,25 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Create Issue Branch
-        id: Create_Issue_Branch
+        id: create_issue_branch
         uses: robvanderleek/create-issue-branch@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Get Issue Description
+        id: get_issue_description
+        uses: actions/github-script@v6
+        with:
+          script: |
+            echo "print issue description"
+            const issue = await github.issues.get({
+              issue_number: issue_number
+              });
+            echo issue.data.body;
       - name: Create new file from template
-        id: Create_new_file
+        id: create_new_file
         run: | 
-            echo ${{ steps.Create_Issue_Branch.outputs.branchName }}
-            git checkout -b ${{ steps.Create_Issue_Branch.outputs.branchName }}
+            echo ${{ steps.create_issue_branch.outputs.branchName }}
+            git checkout -b ${{ steps.create_issue_branch.outputs.branchName }}
             python scripts/drop_rules_create.py --application_name test_app
             echo "file_created=true" >> $GITHUB_ENV
             # ls -la
@@ -30,12 +40,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Commit new file
+        id: commit_new_file
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          echo ${{ steps.Create_Issue_Branch.outputs.branchName }}
+          echo ${{ steps.create_issue_branch.outputs.branchName }}
           git branch -a
-          git pull origin ${{ steps.Create_Issue_Branch.outputs.branchName }}
+          git pull origin ${{ steps.create_issue_branch.outputs.branchName }}
           git add scripts/drop_rule_test_app.tf # move this to diff folder later
           git commit -m "Add new file to new branch" || echo "No changes to commit" 
         env:
