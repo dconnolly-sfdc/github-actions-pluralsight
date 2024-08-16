@@ -1,10 +1,10 @@
 ## Next Steps
-- move .tf file out of scripts folder
+- overwrite existing file ?
 - how to handle production / non-production apps
 - how to auto approve PR's
-- file names for .tf files ?
+- auto merge non-production
 - branch protection
 - PR notifications to slack ?
 
 ## Test
-- overwriting file 
+
