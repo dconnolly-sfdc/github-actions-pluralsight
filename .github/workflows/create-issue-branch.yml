@@ -18,28 +18,32 @@ jobs:
         uses: robvanderleek/create-issue-branch@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Get Issue Description
-        id: get_issue_description
-        run: | 
-          echo "Issue title: ${{ github.event.issue.title }}"
-          echo "Issue body: ${DESCRIPTION}"
-          for line in ${DESCRIPTION}
-          do
-            echo line
-            echo "--"
-          done
-        env:
-          DESCRIPTION: ${{ github.event.issue.body }}
-      - name: Create new file from template
+      # - name: Get Issue Description
+      #   id: get_issue_description
+      #   run: | 
+      #     echo "Issue title: ${{ github.event.issue.title }}"
+      #     echo "Issue body: ${DESCRIPTION}"
+      #     for line in ${DESCRIPTION}
+      #     do
+      #       echo line
+      #       echo "--"
+      #     done
+      #   env:
+      #     DESCRIPTION: ${{ github.event.issue.body }}
+      - name: Create new terraform files from template
         id: create_new_file
         run: | 
             echo ${{ steps.create_issue_branch.outputs.branchName }}
             git checkout -b ${{ steps.create_issue_branch.outputs.branchName }}
-            python scripts/drop_rules_create.py --application_name test_app
-            echo "file_created=true" >> $GITHUB_ENV
+            for line in ${DESCRIPTION}
+            do
+              python scripts/drop_rules_create.py --application_name line
+              echo "file_created=true" >> $GITHUB_ENV
+            done
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Commit new file
+          DESCRIPTION: ${{ github.event.issue.body }}
+      - name: Commit new files
         id: commit_new_file
         run: |
           git config --global user.name "github-actions[bot]"
@@ -47,7 +51,8 @@ jobs:
           echo ${{ steps.create_issue_branch.outputs.branchName }}
           git branch -a
           git pull origin ${{ steps.create_issue_branch.outputs.branchName }}
-          git add non-compliant-applications/drop_rule_test_app.tf # loop through list of apps in issue
+          # git add non-compliant-applications/drop_rule_test_app.tf # loop through list of apps in issue
+          git add .
           git commit -m "Add new file to new branch" || echo "No changes to commit" 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
